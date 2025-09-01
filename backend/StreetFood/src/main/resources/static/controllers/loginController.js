@@ -28,13 +28,19 @@ angular.module('miApp')
       password: $scope.nuevoUsuario.contrasena,
       role: $scope.nuevoUsuario.rol,
       registrationDate: new Date(),
-      active: 1   
+      active: 1
     })
-      .then((response)=>{
-        alert('Usuario registrado con éxito ✅:');
-        AuthService.login($scope.nuevoUsuario);
-        $location.path('/' + $scope.nuevoUsuario.rol);
-      });
-
+    .then(function(response) {
+      alert('Usuario registrado con éxito ✅');
+      AuthService.login($scope.nuevoUsuario);
+      $location.path('/' + $scope.nuevoUsuario.rol);
+    }) 
+    .catch(function(error) { 
+      if (error.status === 409) {
+        alert('Ya existe ese usuario ❌');
+      } else {
+        alert('Error inesperado 🚨');
+      }
+    });
   };
 });

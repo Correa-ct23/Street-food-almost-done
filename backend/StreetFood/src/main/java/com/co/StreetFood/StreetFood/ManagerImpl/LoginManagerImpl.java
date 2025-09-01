@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.co.StreetFood.StreetFood.Dao.LoginDao;
 import com.co.StreetFood.StreetFood.Entity.UsersEntity;
 import com.co.StreetFood.StreetFood.Manager.LoginManager;
+import com.co.StreetFood.StreetFood.util.ValidationException;
 
 @Service
 public class LoginManagerImpl implements LoginManager{
@@ -21,6 +22,14 @@ public class LoginManagerImpl implements LoginManager{
 	
 	@Override
 	public void addUser(UsersEntity user) {
-		dao.addUser(user);
+		List<UsersEntity> users = dao.getUsers();
+		
+		List<UsersEntity> usersDuplicate = 
+			users.stream()
+			 	 .filter(u -> u.getUsername().toUpperCase().equals(user.getUsername().toUpperCase()))
+			 	 .toList();
+		
+		if(usersDuplicate.isEmpty()) dao.addUser(user);
+		else throw new ValidationException("error");
 	}
 }

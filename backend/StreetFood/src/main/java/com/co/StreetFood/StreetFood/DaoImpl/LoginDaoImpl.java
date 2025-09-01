@@ -23,6 +23,7 @@ public class LoginDaoImpl implements LoginDao {
 	@Override
 	public void addUser(UsersEntity user) {
 		entityManager.persist(user);
+		entityManager.flush();
 	}
 
 }

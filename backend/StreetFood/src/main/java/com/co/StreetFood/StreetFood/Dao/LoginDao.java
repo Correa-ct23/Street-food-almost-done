@@ -6,7 +6,7 @@ import com.co.StreetFood.StreetFood.Entity.UsersEntity;
 
 public interface LoginDao {
 
-	public List<UsersEntity> getUsers();
+	List<UsersEntity> getUsers();
 
 	void addUser(UsersEntity user);
 	

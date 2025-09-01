@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.co.StreetFood.StreetFood.Entity.ProductosEntity;
 import com.co.StreetFood.StreetFood.Entity.UsersEntity;
 import com.co.StreetFood.StreetFood.Manager.LoginManager;
+import com.co.StreetFood.StreetFood.Manager.ProductosManager;
 
 import jakarta.transaction.Transactional;
 
@@ -19,6 +21,9 @@ public class StreetFoodService {
 	
 	@Autowired
 	private LoginManager loginManager;
+	
+	@Autowired
+	private ProductosManager productosManager;
 
 	@GetMapping("/Login")
 	@ResponseBody
@@ -30,5 +35,11 @@ public class StreetFoodService {
 	@Transactional
 	public void addUser(@RequestBody UsersEntity user) {
 		loginManager.addUser(user);
+	}
+	
+	@GetMapping("/getProducts")
+	@ResponseBody
+	public List<ProductosEntity> getProducts() {
+		return productosManager.getProducts();
 	}
 }
