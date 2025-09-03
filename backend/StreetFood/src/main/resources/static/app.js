@@ -19,7 +19,7 @@ angular.module('miApp', ['ngRoute'])
     })
     .when('/admin', {
       templateUrl: 'views/admin.html',
-      controller: 'AdminController'
+      controller: 'AdministradorController'
     })
     .otherwise({
       redirectTo: '/'

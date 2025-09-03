@@ -23,24 +23,25 @@ angular.module('miApp')
   };
 
   $scope.registrar = function() {
-    $http.post('/SignUp', {
-      username: $scope.nuevoUsuario.nombre,
-      password: $scope.nuevoUsuario.contrasena,
-      role: $scope.nuevoUsuario.rol,
-      registrationDate: new Date(),
-      active: 1
-    })
-    .then(function(response) {
-      alert('Usuario registrado con éxito ✅');
-      AuthService.login($scope.nuevoUsuario);
-      $location.path('/' + $scope.nuevoUsuario.rol);
-    }) 
-    .catch(function(error) { 
-      if (error.status === 409) {
-        alert('Ya existe ese usuario ❌');
-      } else {
-        alert('Error inesperado 🚨');
-      }
-    });
+    $http
+      .post('/SignUp', {
+        username: $scope.nuevoUsuario.nombre,
+        password: $scope.nuevoUsuario.contrasena,
+        role: $scope.nuevoUsuario.rol,
+        registrationDate: new Date(),
+        active: 1
+      })
+      .then(function(response) {
+        alert('Usuario registrado con éxito ✅');
+        AuthService.login($scope.nuevoUsuario);
+        $location.path('/' + $scope.nuevoUsuario.rol);
+      }) 
+      .catch(function(error) { 
+        if (error.status === 409) {
+          alert('Ya existe ese usuario ❌');
+        } else {
+          alert('Error inesperado 🚨');
+        }
+      });
   };
 });

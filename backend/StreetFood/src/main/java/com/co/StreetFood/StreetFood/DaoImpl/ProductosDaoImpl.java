@@ -21,4 +21,34 @@ public class ProductosDaoImpl implements ProductosDao {
 		return entityManager.createQuery("SELECT u FROM ProductosEntity u", ProductosEntity.class).getResultList();
 	}
 
+	@Override
+	public void addProduct(ProductosEntity product) {
+		entityManager.persist(product);
+		entityManager.flush();
+	}
+
+	@Override
+	public void updateProduct(ProductosEntity product) {
+		entityManager.merge(product);
+		entityManager.flush();
+	}
+	
+	@Override
+	public ProductosEntity getProductByName(String name){
+		try {
+			return entityManager
+				    .createQuery("SELECT u FROM ProductosEntity u WHERE u.nombre = :nombre", ProductosEntity.class)
+				    .setParameter("nombre", name)
+				    .getSingleResult();
+		}
+		catch(Exception e){
+			  return null;
+		}
+	}
+
+	@Override
+	public void deleteProduct(ProductosEntity product) {
+		entityManager.remove(product);
+		entityManager.flush();
+	}
 }
